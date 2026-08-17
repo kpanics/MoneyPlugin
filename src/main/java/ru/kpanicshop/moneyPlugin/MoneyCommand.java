@@ -1,4 +1,4 @@
-package ru.kpanicshop.moneyPlugin; // Твой пакет
+package ru.kpanicshop.moneyPlugin;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
+import java.util.HashMap;
 
 public class MoneyCommand implements CommandExecutor {
 
@@ -19,16 +20,27 @@ public class MoneyCommand implements CommandExecutor {
             sender.sendMessage(ChatColor.YELLOW + "Only KPlayers can use this command.");
             return true;
         }
+
         Player player = (Player) sender;
         ItemStack item = new ItemStack(Material.GOLD_NUGGET);
         ItemMeta meta = item.getItemMeta();
-        if (meta !=null) {
+        if (meta != null) {
             meta.setDisplayName(ChatColor.GOLD + "Монета");
             item.setItemMeta(meta);
         }
-        player.getInventory().addItem(item);
-        player.sendMessage(ChatColor.GREEN + "Выдана одна монета")
-                return true;
+
+        HashMap<Integer, ItemStack> notFit = player.getInventory().addItem(item);
+
+        if (!notFit.isEmpty()) {
+            for (ItemStack leftItem : notFit.values()) {
+                player.getWorld().dropItemNaturally(player.getLocation(), leftItem);
+            }
+            player.sendMessage(ChatColor.YELLOW + "Ваш инвентарь был полон! Монета сброшена под ноги.");
+        } else {
+            player.sendMessage(ChatColor.GREEN + "Выдана одна монета.");
+        }
+
+        return true;
     }
 }
 
