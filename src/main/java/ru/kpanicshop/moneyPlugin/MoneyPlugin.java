@@ -4,14 +4,27 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class MoneyPlugin extends JavaPlugin {
 
+    // Создаем статическую переменную, чтобы легко брать конфиг из класса команды
+    private static MoneyPlugin instance;
+
     @Override
     public void onEnable() {
-        // Сервер при запуске будет искать команду тут
-        getCommand("money").setExecutor(new MoneyCommand());
+        instance = this;
+
+        // Автоматически создает папку иconfig.yml, если их еще нет
+        saveDefaultConfig();
+
+        if (getCommand("money") != null) {
+            getCommand("money").setExecutor(new MoneyCommand());
+        }
     }
 
     @Override
     public void onDisable() {
     }
-}
 
+    // Метод, чтобы получить доступ к плагину из других классов
+    public static MoneyPlugin getInstance() {
+        return instance;
+    }
+}
