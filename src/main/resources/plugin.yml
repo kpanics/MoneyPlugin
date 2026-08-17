@@ -1,11 +1,7 @@
 name: MoneyByKPanic
-version: '${version}'
-
+version: 0.3
 main: ru.kpanicshop.moneyPlugin.MoneyPlugin
-api-version: '1.21.4'
-load: POSTWORLD
-
+api-version: 1.21.4
 commands:
   money:
-      description: Выдает 1 монету!
-      permission: moneyplugin.use
+    description: Выдать монету

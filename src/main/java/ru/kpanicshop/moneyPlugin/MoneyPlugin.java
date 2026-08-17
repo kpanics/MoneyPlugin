@@ -11,7 +11,7 @@ public final class MoneyPlugin extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
-        // Автоматически создает папку иconfig.yml, если их еще нет
+        // Автоматически создает папку и config.yml, если их еще нет
         saveDefaultConfig();
 
         if (getCommand("money") != null) {
