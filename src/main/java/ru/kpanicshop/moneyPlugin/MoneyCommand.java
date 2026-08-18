@@ -2,6 +2,8 @@ package ru.kpanicshop.moneyPlugin;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -46,6 +48,8 @@ public class MoneyCommand implements CommandExecutor {
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
             meta.setDisplayName(displayName);
+            NamespacedKey key = new NamespacedKey(MoneyPlugin.getInstance(), "GOLD");
+            meta.getPersistentDataContainer().set(key, PersistentDataType.STRING, "true");
             item.setItemMeta(meta);
         }
 

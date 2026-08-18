@@ -17,6 +17,9 @@ public final class MoneyPlugin extends JavaPlugin {
         if (getCommand("money") != null) {
             getCommand("money").setExecutor(new MoneyCommand());
         }
+        if (getCommand("trade") !=null)  {
+            getCommand("trade").setExecutor(new TradeCommand());
+        }
     }
 
     @Override
