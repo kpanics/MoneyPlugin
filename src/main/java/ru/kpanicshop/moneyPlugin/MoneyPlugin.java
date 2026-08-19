@@ -20,6 +20,7 @@ public final class MoneyPlugin extends JavaPlugin {
         if (getCommand("trade") !=null)  {
             getCommand("trade").setExecutor(new TradeCommand());
         }
+        getServer().getPluginManager().registerEvents(new TradeListener(), this);
     }
 
     @Override

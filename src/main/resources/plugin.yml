@@ -1,7 +1,10 @@
-name: MoneyByKPanic
-version: 0.3
+name: MoneyPlugin
+version: 0.6
 main: ru.kpanicshop.moneyPlugin.MoneyPlugin
-api-version: 1.21.4
+api-version: '1.21.4'
+
 commands:
   money:
-    description: Выдать монету
+    description: Выдать защищенную физическую монету
+  trade:
+    description: Открыть встроенное GUI-меню обмена предметами между игроками

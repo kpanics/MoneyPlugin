@@ -13,24 +13,24 @@ public class TradeCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 
-        // 1. Сначала объявляем игрока (делаем каст из sender)
+        // 1. Сначала проверяем, что команду ввёл именно игрок
         if (!(sender instanceof Player player)) {
             sender.sendMessage(ChatColor.RED + "Эту команду могут использовать только игроки!");
             return true;
         }
 
-        // 2. Проверяем длину аргументов (исправлено на length)
+        // 2. Проверяем длину аргументов (введён ли ник игрока)
         if (args.length == 0) {
             player.sendMessage(ChatColor.RED + "Использование: /trade [ник игрока]");
             return true;
         }
 
-        // 3. Берем первый аргумент из массива — это ник цели args[0]
+        // 3. Берем первый аргумент из массива — это ник цели обмена
         Player target = Bukkit.getPlayer(args[0]);
 
         if (target == null) {
             player.sendMessage(ChatColor.RED + "Игрок отсутствует либо вы ошиблись ником");
-            return true; // Не забудь тут return true, чтобы код остановился, если игрока нет!
+            return true;
         }
 
         // 4. Проверяем, чтобы игрок не торговал сам с собой
@@ -39,10 +39,10 @@ public class TradeCommand implements CommandExecutor {
             return true;
         }
 
-        // 5. Отправляем сообщения об успешном запросе
-        player.sendMessage(ChatColor.GREEN + "Вы отправили запрос на обмен игроку с ником: " + target.getName());
-        target.sendMessage(ChatColor.GREEN + "Игрок " + player.getName() + " хочет обменяться с вами!");
+        // 5. Создаем объект нашего GUI и открываем его для обоих игроков!
+        TradeGui tradeGui = new TradeGui();
+        tradeGui.openTradeMenu(player, target);
 
         return true;
-    } // <--- Вот эта скобка должна закрывать метод в самом конце!
+    }
 }
